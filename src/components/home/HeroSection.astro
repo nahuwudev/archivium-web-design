@@ -1,0 +1,159 @@
+---
+import Section from "../layout/Section.astro";
+import GridContainer from "../layout/GridContainer.astro";
+import Statement from "../typography/Statement.astro";
+import Body from "../typography/Body.astro";
+import ArchitecturalPlan from "../svg/arq-plan.astro";
+---
+
+<Section
+  class="h-[95vh] min-h-[700px] flex items-center overflow-hidden relative"
+  id="hero"
+>
+  {/* Abstract Architectural Background Layer 1: The Plan */}
+  <div
+    class="absolute inset-0 z-0 pointer-events-none text-muted-foreground/40 animate-drift perspective-1000"
+  >
+    <div
+      class="w-[150%] h-[150%] -translate-x-1/6 -translate-y-1/6 rotate-x-10"
+    >
+      <ArchitecturalPlan />
+    </div>
+  </div>
+
+  {/* Layer 2: Subtle Gradient Spotlight */}
+  <div
+    class="absolute inset-0 z-0 bg-radial-gradient from-transparent via-background/60 to-background pointer-events-none"
+  >
+  </div>
+
+  <GridContainer>
+    <div
+      class="col-span-4 md:col-start-2 md:col-span-10 lg:col-start-2 lg:col-span-8 flex flex-col justify-center h-full z-10 relative"
+    >
+      <div class="parallax-element" data-speed="0.05">
+        <Statement
+          as="h1"
+          class="text-5xl md:text-8xl lg:text-9xl mb-12 animate-reveal mix-blend-difference text-primary"
+          style="animation-delay: 0.2s;"
+        >
+          Real Estate <br />
+          as Digital <br />
+          Infrastructure
+        </Statement>
+      </div>
+
+      <div class="max-w-md parallax-element relative pl-8" data-speed="0.1">
+        {/* Tech Line Decor */}
+        <div
+          class="absolute left-0 top-0 bottom-0 w-px bg-linear-to-b from-primary/50 to-transparent animate-reveal-height"
+          style="animation-delay: 0.5s;"
+        >
+        </div>
+
+        <Body
+          class="text-lg md:text-xl animate-reveal relative z-10"
+          style="animation-delay: 0.8s;"
+        >
+          ARCHIVIUM operates on principles of permanence, hierarchy, and
+          structural clarity. It treats assets as records, not content.
+        </Body>
+
+        <div
+          class="mt-8 flex items-center space-x-4 animate-reveal"
+          style="animation-delay: 1.0s;"
+        >
+          <span class="h-2 w-2 bg-primary rounded-full animate-pulse-slow"
+          ></span>
+          <span class="text-xs font-mono text-muted-foreground tracking-widest"
+            >SYSTEM_ONLINE :: V1.0</span
+          >
+        </div>
+      </div>
+    </div>
+  </GridContainer>
+
+  {/* Layer 3: HUD Overlay */}
+  <div
+    class="absolute bottom-10 right-10 hidden md:block z-20 pointer-events-none"
+  >
+    <div
+      class="flex flex-col items-end space-y-1 text-[10px] font-mono text-muted-foreground/40"
+    >
+      <span>COORDS: 34.0522° N, 118.2437° W</span>
+      <span>ALT: 1200FT</span>
+      <span>VISIBILITY: 100%</span>
+    </div>
+  </div>
+</Section>
+
+<style>
+  @keyframes drift {
+    0% {
+      transform: translate(-25%, -25%) scale(1);
+    }
+    50% {
+      transform: translate(-22%, -28%) scale(1.02);
+    }
+    100% {
+      transform: translate(-25%, -25%) scale(1);
+    }
+  }
+  .animate-drift {
+    animation: drift 120s infinite ease-in-out;
+  }
+
+  @keyframes reveal {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .animate-reveal {
+    opacity: 0;
+    animation: reveal 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  @keyframes reveal-height {
+    from {
+      height: 0;
+    }
+    to {
+      height: 100%;
+    }
+  }
+  .animate-reveal-height {
+    height: 0;
+    animation: reveal-height 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  @keyframes spin-slow {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  .animate-spin-slow {
+    transform-origin: 600px 500px;
+    animation: spin-slow 60s linear infinite;
+  }
+</style>
+
+<script>
+  // Simple Parallax Effect
+  document.addEventListener("scroll", () => {
+    const scrolled = window.scrollY;
+    const elements = document.querySelectorAll(".parallax-element");
+
+    elements.forEach((el) => {
+      const speed = parseFloat((el as HTMLElement).dataset.speed || "0");
+      (el as HTMLElement).style.transform = `translateY(${scrolled * speed}px)`;
+    });
+  });
+</script>

@@ -1,0 +1,151 @@
+---
+import Section from "../layout/Section.astro";
+import GridContainer from "../layout/GridContainer.astro";
+import Statement from "../typography/Statement.astro";
+import Body from "../typography/Body.astro";
+import Label from "../typography/Label.astro";
+import Button from "../ui/Button.astro";
+
+const contactDetails = [
+  { label: "FREQUENCY", value: "ENCRYPTED_CH_09" },
+  { label: "LOCATION", value: "SECTOR_7_G" },
+  { label: "PROTOCOL", value: "DIRECT_LINE" },
+];
+---
+
+<Section class="py-24 md:py-32 border-b-0" id="contact">
+  <GridContainer>
+    <div class="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-x-4 w-full">
+      {/* Header / Left Column */}
+      <div
+        class="col-span-4 md:col-span-4 lg:col-span-6 flex flex-col justify-between h-full mb-12 md:mb-0"
+      >
+        <div>
+          <Label class="mb-4">OUTBOUND_COMMUNICATION</Label>
+          <Statement as="h2" class="text-4xl md:text-6xl lg:text-7xl mb-8">
+            Transmission
+          </Statement>
+          <div class="h-px w-24 bg-primary mb-8"></div>
+          <Body class="text-lg md:text-xl max-w-sm opacity-80">
+            Initiate protocol for project inquiries or archival requests. System
+            is listening.
+          </Body>
+        </div>
+
+        <div class="hidden lg:block mt-24">
+          <div
+            class="font-mono text-xs text-muted-foreground tracking-widest leading-loose"
+          >
+            STATUS: LISTENING<br />
+            LATENCY: 12ms<br />
+            ENCRYPTION: AES-256
+          </div>
+        </div>
+      </div>
+
+      {/* Right Column / Interaction */}
+      <div
+        class="col-span-4 md:col-span-4 lg:col-span-5 lg:col-start-8 flex flex-col justify-center"
+      >
+        <div class="p-1 border-l border-border/20 pl-8 md:pl-12">
+          <div class="space-y-12">
+            {/* Meta Data Block */}
+            <div class="grid grid-cols-2 gap-8">
+              {
+                contactDetails.map((item) => (
+                  <div>
+                    <h4 class="font-mono text-xs text-muted-foreground tracking-widest mb-2">
+                      {item.label}
+                    </h4>
+                    <p class="font-mono text-sm text-foreground">
+                      {item.value}
+                    </p>
+                  </div>
+                ))
+              }
+            </div>
+
+            {/* Email Action */}
+            <div class="space-y-4">
+              <Label>DIRECT_LINK</Label>
+              <a
+                href="mailto:hello@archivium.com"
+                class="block group relative overflow-hidden"
+              >
+                <div
+                  class="text-3xl md:text-4xl lg:text-5xl font-serif text-foreground group-hover:text-primary transition-colors duration-300"
+                >
+                  hello@archivium.com
+                </div>
+                <div
+                  class="absolute bottom-0 left-0 w-full h-px bg-border/30 group-hover:bg-primary/50 transition-colors duration-300"
+                >
+                </div>
+                <div
+                  class="absolute bottom-0 left-0 w-full h-px bg-primary transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500"
+                >
+                </div>
+              </a>
+              <p
+                class="text-xs font-mono text-muted-foreground pt-2 flex items-center"
+              >
+                <span
+                  class="w-1.5 h-1.5 bg-green-500 rounded-full mr-2 animate-pulse"
+                ></span>
+                OPERATORS_ONLINE
+              </p>
+            </div>
+
+            {/* Physical Address (Stylized) */}
+            <div class="pt-8 border-t border-border/10">
+              <Label class="mb-4">PHYSICAL_ARCHIVE</Label>
+              <address
+                class="icon-address not-italic font-mono text-sm text-muted-foreground leading-relaxed"
+              >
+                Baluarte Studio<br />
+                10010, Sector 04<br />
+                Kyoto, JP
+              </address>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </GridContainer>
+</Section>
+
+<script>
+  // Reveal animation logic reuse (this should ideally be a shared utility,
+  // but in Astro strict scoping, repeating or importing a small script is fine)
+  const observerOptions = {
+    root: null,
+    rootMargin: "0px",
+    threshold: 0.1,
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll(".reveal-element").forEach((el) => {
+    observer.observe(el);
+  });
+</script>
+
+<style>
+  .reveal-element {
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+      opacity 0.8s ease-out,
+      transform 0.8s ease-out;
+  }
+  .reveal-element.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>

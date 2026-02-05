@@ -1,0 +1,20 @@
+---
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<div class={`w-full overflow-x-auto ${className}`}>
+  <table class="w-full text-left text-sm whitespace-nowrap">
+    <thead class="border-b border-border/20">
+      <tr>
+        <slot name="header" />
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-border/10">
+      <slot />
+    </tbody>
+  </table>
+</div>

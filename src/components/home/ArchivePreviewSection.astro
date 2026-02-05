@@ -1,0 +1,148 @@
+---
+import Section from "../layout/Section.astro";
+import GridContainer from "../layout/GridContainer.astro";
+import Statement from "../typography/Statement.astro";
+import ArchiveTable from "../ui/ArchiveTable.astro";
+import Label from "../typography/Label.astro";
+
+const assets = [
+  {
+    code: "AST-0193-K",
+    typology: "Brutalist Residence",
+    status: "Archived",
+    year: "1972",
+    location: "Kyoto, JP",
+  },
+  {
+    code: "AST-0201-L",
+    typology: "Industrial Warehouse",
+    status: "Available",
+    year: "1958",
+    location: "London, UK",
+  },
+  {
+    code: "AST-0884-B",
+    typology: "Civic Centre",
+    status: "Restoration",
+    year: "1984",
+    location: "Berlin, DE",
+  },
+  {
+    code: "AST-0102-N",
+    typology: "Penthouse Loft",
+    status: "Sold",
+    year: "2012",
+    location: "New York, USA",
+  },
+  {
+    code: "AST-9921-X",
+    typology: "Data Center (Subterranean)",
+    status: "Inquiry",
+    year: "2024",
+    location: "Reykjavik, IS",
+  },
+];
+---
+
+<Section class="min-h-screen flex items-center" id="archive">
+  <GridContainer>
+    <div
+      class="col-span-4 md:col-span-8 lg:col-span-12 mb-16 flex justify-between items-end border-b border-border/10 pb-6 reveal-element"
+    >
+      <Statement as="h2" class="text-4xl md:text-5xl">Archive Preview</Statement
+      >
+      <Label class="hidden md:block">SELECT_ASSETS_FROM_DATABASE</Label>
+    </div>
+
+    <div class="col-span-4 md:col-span-8 lg:col-span-12">
+      <ArchiveTable>
+        <Fragment slot="header">
+          <th
+            class="hidden md:table-cell py-4 px-4 text-xs font-mono uppercase tracking-widest text-muted-foreground font-normal w-1/6 opacity-50"
+            >Asset Code</th
+          >
+          <th
+            class="py-4 px-4 text-xs font-mono uppercase tracking-widest text-muted-foreground font-normal w-full md:w-2/6 opacity-50 text-left"
+            >Typology</th
+          >
+          <th
+            class="hidden md:table-cell py-4 px-4 text-xs font-mono uppercase tracking-widest text-muted-foreground font-normal w-1/6 opacity-50"
+            >Status</th
+          >
+          <th
+            class="hidden md:table-cell py-4 px-4 text-xs font-mono uppercase tracking-widest text-muted-foreground font-normal w-1/6 opacity-50"
+            >Year</th
+          >
+          <th
+            class="py-4 px-4 text-xs font-mono uppercase tracking-widest text-muted-foreground font-normal w-auto md:w-1/6 text-right opacity-50"
+            >Location</th
+          >
+        </Fragment>
+
+        {
+          assets.map((asset, index) => (
+            <tr
+              class="group cursor-pointer transition-colors border-b border-white/5 hover:border-white/10 relative overflow-hidden reveal-element"
+              style={`transition-delay: ${index * 100}ms`}
+            >
+              {/* Hover Gradient Background */}
+              <td class="absolute inset-0 z-0 bg-linear-to-r from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+
+              <td class="hidden md:table-cell relative z-10 py-8 px-4 font-mono text-sm text-foreground/60 group-hover:text-foreground transition-colors duration-300">
+                {asset.code}
+              </td>
+              <td class="relative z-10 py-8 px-4 font-serif text-xl md:text-2xl text-foreground group-hover:text-primary transition-transform duration-300 group-hover:translate-x-2">
+                {asset.typology}
+              </td>
+              <td class="hidden md:table-cell relative z-10 py-8 px-4 font-mono text-xs uppercase tracking-wider text-muted-foreground group-hover:text-foreground transition-colors duration-300">
+                <span class="inline-block py-1 px-2 border border-border/50 rounded-full group-hover:border-foreground/50 transition-colors">
+                  {asset.status}
+                </span>
+              </td>
+              <td class="hidden md:table-cell relative z-10 py-8 px-4 font-mono text-sm text-muted-foreground group-hover:text-foreground transition-colors duration-300">
+                {asset.year}
+              </td>
+              <td class="relative z-10 py-8 px-4 font-mono text-sm text-right text-muted-foreground group-hover:text-foreground transition-colors duration-300">
+                {asset.location}
+              </td>
+            </tr>
+          ))
+        }
+      </ArchiveTable>
+    </div>
+  </GridContainer>
+</Section>
+
+<script>
+  const observerOptions = {
+    root: null,
+    rootMargin: "0px",
+    threshold: 0.1,
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll(".reveal-element").forEach((el) => {
+    observer.observe(el);
+  });
+</script>
+
+<style>
+  .reveal-element {
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+      opacity 0.8s ease-out,
+      transform 0.8s ease-out;
+  }
+  .reveal-element.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>

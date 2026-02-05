@@ -1,0 +1,66 @@
+---
+import GridContainer from "./GridContainer.astro";
+import Statement from "../typography/Statement.astro";
+import Label from "../typography/Label.astro";
+---
+
+<footer
+  class="w-full py-20 border-t border-border/10 bg-background z-10 relative"
+>
+  <GridContainer>
+    <div
+      class="col-span-4 md:col-span-8 lg:col-span-12 flex flex-col md:flex-row justify-between items-start md:items-end gap-12"
+    >
+      <div class="flex flex-col space-y-4">
+        <Statement as="h2" class="text-3xl">ARCHIVIUM</Statement>
+        <Label>DIGITAL_INFRASTRUCTURE_FOR_REAL_ESTATE</Label>
+      </div>
+
+      <div class="flex flex-col md:flex-row gap-8 md:gap-16">
+        <div class="flex flex-col space-y-2">
+          <Label class="mb-2 text-foreground">Sitemap</Label>
+          <a
+            href="/archive"
+            class="text-sm text-muted-foreground hover:text-foreground transition-colors"
+            >Archive</a
+          >
+          <a
+            href="/manifesto"
+            class="text-sm text-muted-foreground hover:text-foreground transition-colors"
+            >Manifesto</a
+          >
+          <a
+            href="/contact"
+            class="text-sm text-muted-foreground hover:text-foreground transition-colors"
+            >Contact</a
+          >
+        </div>
+
+        <div class="flex flex-col space-y-2">
+          <Label class="mb-2 text-foreground">Legal</Label>
+          <a
+            href="/privacy"
+            class="text-sm text-muted-foreground hover:text-foreground transition-colors"
+            >Privacy</a
+          >
+          <a
+            href="/terms"
+            class="text-sm text-muted-foreground hover:text-foreground transition-colors"
+            >Terms</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="col-span-4 md:col-span-8 lg:col-span-12 mt-20 pt-8 border-t border-border/5 flex justify-between items-center"
+    >
+      <Label class="text-[10px] text-muted-foreground/30">
+        SYSTEM_VERSION_1.0.0
+      </Label>
+      <Label class="text-[10px] text-muted-foreground/30">
+        © {new Date().getFullYear()} ARCHIVIUM
+      </Label>
+    </div>
+  </GridContainer>
+</footer>

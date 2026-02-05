@@ -1,9 +1,22 @@
 ---
 import HomeLayout from "@/layouts/HomeLayout.astro";
-import { Button } from "@/components/ui/button";
+import HeroSection from "@/components/home/HeroSection.astro";
+import SystemSection from "@/components/home/SystemSection.astro";
+import ArchivePreviewSection from "@/components/home/ArchivePreviewSection.astro";
+import ArkeonFab from "../components/ui/ArkeonFab.astro";
+import ContactSection from "@/components/home/ContactSection.astro";
+import Nav from "@/components/ui/Nav.astro";
+import Footer from "@/components/layout/Footer.astro";
 ---
 
 <HomeLayout>
-	<h1 class="text-6xl">Home</h1>
-	<Button>Button</Button>
+  <Nav />
+  <main>
+    <HeroSection />
+    <SystemSection />
+    <ArchivePreviewSection />
+    <ContactSection />
+    <ArkeonFab />
+    <Footer />
+  </main>
 </HomeLayout>

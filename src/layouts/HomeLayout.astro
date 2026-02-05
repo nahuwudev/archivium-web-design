@@ -1,17 +1,31 @@
 ---
 import "@/styles/global.css";
+import "@fontsource/fraunces";
+import "@fontsource/inter";
+import "@fontsource/ibm-plex-mono";
 ---
 
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <link rel="icon" href="/favicon.ico" />
-        <meta name="viewport" content="width=device-width" />
-        <meta name="generator" content={Astro.generator} />
-        <title>Astro</title>
-    </head>
-    <body>
-        <slot />
-    </body>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Arkeon</title>
+  </head>
+  <body>
+    <slot />
+    <script>
+      import Lenis from "lenis";
+
+      const lenis = new Lenis();
+
+      function raf(time: number) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+      }
+
+      requestAnimationFrame(raf);
+    </script>
+  </body>
 </html>

@@ -1,0 +1,146 @@
+---
+import HomeLayout from "@/layouts/HomeLayout.astro";
+import Section from "@/components/layout/Section.astro";
+import GridContainer from "@/components/layout/GridContainer.astro";
+import Statement from "@/components/typography/Statement.astro";
+import Label from "@/components/typography/Label.astro";
+import Body from "@/components/typography/Body.astro";
+import Nav from "@/components/ui/Nav.astro";
+import Footer from "@/components/layout/Footer.astro";
+---
+
+<HomeLayout title="ARCHIVIUM | ARKEON SYSTEM">
+  <Nav />
+  <main class="pt-20">
+    <Section class="min-h-[50vh] flex items-center border-b border-border/10">
+      <GridContainer>
+        <div class="col-span-4 md:col-span-8 lg:col-span-12">
+          <Label class="mb-4">DESIGN_SYSTEM</Label>
+          <Statement
+            as="h1"
+            class="text-6xl md:text-8xl lg:text-9xl mb-8 text-primary"
+          >
+            ARKEON
+          </Statement>
+          <Body class="max-w-xl text-xl opacity-80">
+            The visual language of ARCHIVIUM. Defined by permanence, structure,
+            and silence.
+          </Body>
+        </div>
+      </GridContainer>
+    </Section>
+
+    {/* Typography Section */}
+    <Section class="py-20 border-b border-border/10">
+      <GridContainer>
+        <div class="col-span-4 md:col-span-12 mb-12">
+          <Label>01_TYPOGRAPHY</Label>
+        </div>
+
+        {/* Serif */}
+        <div class="col-span-4 md:col-span-6 mb-12">
+          <div class="text-4xl md:text-6xl font-serif mb-4">Fraunces</div>
+          <p class="font-mono text-xs text-muted-foreground">
+            Usage: Headlines, Statements
+          </p>
+          <div class="mt-4 text-3xl font-serif leading-tight opacity-80">
+            The quick brown fox jumps over the lazy dog.
+          </div>
+        </div>
+
+        {/* Sans */}
+        <div class="col-span-4 md:col-span-6 mb-12">
+          <div class="text-4xl md:text-6xl font-sans font-light mb-4">
+            Inter
+          </div>
+          <p class="font-mono text-xs text-muted-foreground">
+            Usage: Body Text
+          </p>
+          <div class="mt-4 text-lg font-sans opacity-80">
+            The quick brown fox jumps over the lazy dog.
+          </div>
+        </div>
+
+        {/* Mono */}
+        <div class="col-span-4 md:col-span-6">
+          <div class="text-4xl md:text-6xl font-mono mb-4">IBM Plex Mono</div>
+          <p class="font-mono text-xs text-muted-foreground">
+            Usage: Metadata, Labels, Code
+          </p>
+          <div class="mt-4 text-sm font-mono opacity-80">
+            The quick brown fox jumps over the lazy dog.
+          </div>
+        </div>
+      </GridContainer>
+    </Section>
+
+    {/* Color Palette */}
+    <Section class="py-20 border-b border-border/10">
+      <GridContainer>
+        <div class="col-span-4 md:col-span-12 mb-12">
+          <Label>02_COLOR_PALETTE</Label>
+        </div>
+
+        <div class="col-span-2 md:col-span-3">
+          <div class="h-32 w-full bg-background border border-border/20 mb-4">
+          </div>
+          <p class="font-mono text-xs">Background</p>
+          <p class="font-mono text-xs text-muted-foreground">
+            hsl(var(--background))
+          </p>
+        </div>
+
+        <div class="col-span-2 md:col-span-3">
+          <div class="h-32 w-full bg-foreground mb-4"></div>
+          <p class="font-mono text-xs">Foreground</p>
+          <p class="font-mono text-xs text-muted-foreground">
+            hsl(var(--foreground))
+          </p>
+        </div>
+
+        <div class="col-span-2 md:col-span-3">
+          <div class="h-32 w-full bg-primary mb-4"></div>
+          <p class="font-mono text-xs">Primary</p>
+          <p class="font-mono text-xs text-muted-foreground">
+            hsl(var(--primary))
+          </p>
+        </div>
+
+        <div class="col-span-2 md:col-span-3">
+          <div class="h-32 w-full bg-muted mb-4"></div>
+          <p class="font-mono text-xs">Muted</p>
+          <p class="font-mono text-xs text-muted-foreground">
+            hsl(var(--muted))
+          </p>
+        </div>
+      </GridContainer>
+    </Section>
+
+    {/* Components */}
+    <Section class="py-20 border-b border-border/10">
+      <GridContainer>
+        <div class="col-span-4 md:col-span-12 mb-12">
+          <Label>03_COMPONENTS</Label>
+        </div>
+
+        <div class="col-span-4 md:col-span-6 space-y-8">
+          <div>
+            <p class="font-mono text-xs text-muted-foreground mb-4">Label</p>
+            <Label>SYSTEM_LABEL</Label>
+          </div>
+          <div>
+            <p class="font-mono text-xs text-muted-foreground mb-4">
+              Statement
+            </p>
+            <Statement as="h3" class="text-2xl">Visual Hierarchy</Statement>
+          </div>
+          <div>
+            <p class="font-mono text-xs text-muted-foreground mb-4">Body</p>
+            <Body>Standard body text for long-form content reading.</Body>
+          </div>
+        </div>
+      </GridContainer>
+    </Section>
+  </main>
+  <Footer />
+</HomeLayout>

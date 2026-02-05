@@ -1,0 +1,153 @@
+---
+import Section from "../layout/Section.astro";
+import GridContainer from "../layout/GridContainer.astro";
+import Statement from "../typography/Statement.astro";
+import Body from "../typography/Body.astro";
+import Label from "../typography/Label.astro";
+
+// Diagram 1: Grid/Structure
+const Diagram1 = `
+<svg width="40" height="40" viewBox="0 0 40 40" fill="none" class="text-foreground transition-all duration-500 group-hover:scale-110 group-hover:text-primary">
+  <rect x="0.5" y="0.5" width="39" height="39" stroke="currentColor"/>
+  <line x1="13.5" y1="0" x2="13.5" y2="40" stroke="currentColor"/>
+  <line x1="26.5" y1="0" x2="26.5" y2="40" stroke="currentColor"/>
+  <line x1="0" y1="13.5" x2="40" y2="13.5" stroke="currentColor"/>
+  <line x1="0" y1="26.5" x2="40" y2="26.5" stroke="currentColor"/>
+</svg>
+`;
+
+// Diagram 2: Stack/Hierarchy
+const Diagram2 = `
+<svg width="40" height="40" viewBox="0 0 40 40" fill="none" class="text-foreground transition-all duration-500 group-hover:scale-110 group-hover:text-primary">
+  <rect x="0.5" y="0.5" width="39" height="9" stroke="currentColor"/>
+  <rect x="0.5" y="14.5" width="39" height="9" stroke="currentColor"/>
+  <rect x="0.5" y="29.5" width="39" height="9" stroke="currentColor"/>
+</svg>
+`;
+
+// Diagram 3: Focus/Permanence
+const Diagram3 = `
+<svg width="40" height="40" viewBox="0 0 40 40" fill="none" class="text-foreground transition-all duration-500 group-hover:scale-110 group-hover:text-primary">
+  <rect x="0.5" y="0.5" width="39" height="39" rx="19.5" stroke="currentColor"/>
+  <rect x="15" y="15" width="10" height="10" fill="currentColor"/>
+</svg>
+`;
+
+// Diagram 4: Protocol/Security
+const Diagram4 = `
+<svg width="40" height="40" viewBox="0 0 40 40" fill="none" class="text-foreground transition-all duration-500 group-hover:scale-110 group-hover:text-primary">
+  <rect x="0.5" y="0.5" width="39" height="39" stroke="currentColor"/> // Outer border
+  <path d="M10 20 L20 30 L30 10" stroke="currentColor" fill="none" class="opacity-0 group-hover:opacity-100 transition-opacity duration-300"/> // Checkmark reveal
+  <rect x="10" y="15" width="20" height="15" stroke="currentColor"/> // Lock body
+  <path d="M15 15 V10 A5 5 0 0 1 25 10 V15" stroke="currentColor"/> // Lock shackle
+  <circle cx="20" cy="22.5" r="2" fill="currentColor"/> // Keyhole
+</svg>
+`;
+
+const systemItems = [
+  {
+    title: "ARCHIVE",
+    description:
+      "Records, not listings. Every asset is treated as a permanent entry in the digital ledger.",
+    diagram: Diagram1,
+    code: "ASSET::TYPE::0193",
+    colSpan: "col-span-1 md:col-span-2 lg:col-span-2",
+  },
+  {
+    title: "INFRASTRUCTURE",
+    description: "The interface behaves like an archive.",
+    diagram: Diagram2,
+    code: "SYS::CORE::8421",
+    colSpan: "col-span-1 md:col-span-1 lg:col-span-1",
+  },
+  {
+    title: "PERMANENCE",
+    description:
+      "Design decisions made to age well. No trends, just structure.",
+    diagram: Diagram3,
+    code: "TIME::CONT::0001",
+    colSpan: "col-span-1 md:col-span-1 lg:col-span-1",
+  },
+  {
+    title: "PROTOCOL",
+    description:
+      "Standardized communication methods for secure data transmission.",
+    diagram: Diagram4,
+    code: "SEC::PROTO::9920",
+    colSpan: "col-span-1 md:col-span-2 lg:col-span-2",
+  },
+];
+---
+
+<Section class="border-b-0 py-24" id="system">
+  <GridContainer>
+    <div
+      class="col-span-4 md:col-span-8 lg:col-span-12 mb-12 flex items-end justify-between"
+    >
+      <Statement as="h2" class="text-4xl md:text-5xl">The System</Statement>
+      <Label class="hidden md:block">CORE_OPERATING_PRINCIPLES</Label>
+    </div>
+
+    <div
+      class="col-span-4 md:col-span-8 lg:col-span-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+    >
+      {
+        systemItems.map((item, index) => (
+          <div
+            class={`reveal-element group relative p-8 border border-border/40 hover:border-border/80 bg-background/50 backdrop-blur-sm transition-all duration-500 hover:shadow-[0_0_30px_-10px_rgba(255,255,255,0.05)] flex flex-col justify-between min-h-[300px] ${item.colSpan}`}
+            style={`transition-delay: ${index * 150}ms`}
+          >
+            <div class="absolute top-4 right-4 opacity-50 group-hover:opacity-100 transition-opacity">
+              <Label>{item.code}</Label>
+            </div>
+
+            <div class="mb-8" set:html={item.diagram} />
+
+            <div>
+              <Statement as="h3" class="text-2xl mb-2">
+                {item.title}
+              </Statement>
+              <Body class="text-sm md:text-base opacity-70 group-hover:opacity-100 transition-opacity max-w-[30ch]">
+                {item.description}
+              </Body>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </GridContainer>
+</Section>
+
+<script>
+  const observerOptions = {
+    root: null,
+    rootMargin: "0px",
+    threshold: 0.1,
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll(".reveal-element").forEach((el) => {
+    observer.observe(el);
+  });
+</script>
+
+<style>
+  .reveal-element {
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+      opacity 0.8s ease-out,
+      transform 0.8s ease-out;
+  }
+  .reveal-element.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>

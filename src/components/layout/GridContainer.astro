@@ -1,0 +1,38 @@
+---
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<div
+  class={`grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-x-4 max-w-[1400px] mx-auto px-6 h-full w-full relative ${className}`}
+>
+  {
+    /* Debug/Structure layer - can be toggled or made visible as per "Structure" philosophy */
+  }
+  <div
+    class="absolute inset-0 grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-x-4 pointer-events-none z-0"
+  >
+    {
+      Array.from({ length: 12 }).map((_, i) => (
+        <div class="h-full border-r border-border/10 last:border-r-0 border-l first:border-l-0 hidden lg:block" />
+      ))
+    }
+    {
+      Array.from({ length: 8 }).map((_, i) => (
+        <div class="h-full border-r border-border/10 last:border-r-0 border-l first:border-l-0 hidden md:block lg:hidden" />
+      ))
+    }
+    {
+      Array.from({ length: 4 }).map((_, i) => (
+        <div class="h-full border-r border-border/10 last:border-r-0 border-l first:border-l-0 block md:hidden" />
+      ))
+    }
+  </div>
+
+  <div class="col-span-4 md:col-span-8 lg:col-span-12 z-10 relative">
+    <slot />
+  </div>
+</div>

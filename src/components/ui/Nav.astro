@@ -1,0 +1,124 @@
+---
+import GridContainer from "../layout/GridContainer.astro";
+import Statement from "../typography/Statement.astro";
+---
+
+<nav
+  class="fixed top-0 left-0 w-full z-50 border-b border-border/10 bg-background/80 backdrop-blur-sm h-16 md:h-20"
+>
+  <GridContainer class="flex items-center justify-between">
+    <a href="/" class="block">
+      <Statement as="h1" class="text-lg md:text-xl font-medium tracking-tighter"
+        >ARCHIVIUM</Statement
+      >
+    </a>
+
+    <div class="hidden md:flex items-center space-x-8">
+      <a
+        href="#archive"
+        class="text-sm font-mono uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors"
+        >Archive</a
+      >
+      <a
+        href="#system"
+        class="text-sm font-mono uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors"
+        >Manifesto</a
+      >
+      <a
+        href="#contact"
+        class="text-sm font-mono uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors"
+        >Contact</a
+      >
+    </div>
+
+    <div class="md:hidden">
+      <button
+        id="menu-toggle"
+        class="text-sm font-mono uppercase tracking-widest text-muted-foreground hover:text-foreground z-70 relative w-8 h-8 flex items-center justify-center transition-colors"
+        aria-label="Toggle Menu"
+      >
+        Menu
+      </button>
+    </div>
+  </GridContainer>
+</nav>
+
+{/* Mobile Menu Overlay - Moved outside nav to avoid containing block issues */}
+<div
+  id="mobile-menu"
+  class="fixed inset-0 bg-background/95 backdrop-blur-xl z-60 flex flex-col items-center justify-center space-y-8 opacity-0 pointer-events-none transition-opacity duration-300"
+>
+  {/* Close Button positioned to match Nav layout */}
+  <div class="absolute top-5 left-5 w-full h-16 flex items-center z-50">
+    <GridContainer class="w-full flex justify-end">
+      <button
+        id="menu-close"
+        class="text-sm font-mono uppercase tracking-widest text-foreground w-12 h-12 flex items-center justify-center border border-border/20 rounded-full hover:bg-foreground/5 transition-all duration-300"
+        aria-label="Close Menu"
+      >
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="square"
+          stroke-linejoin="miter"
+        >
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </GridContainer>
+  </div>
+
+  <a
+    href="#archive"
+    class="mobile-link text-2xl font-serif text-foreground hover:text-primary transition-colors"
+    >Archive</a
+  >
+  <a
+    href="#system"
+    class="mobile-link text-2xl font-serif text-foreground hover:text-primary transition-colors"
+    >Manifesto</a
+  >
+  <a
+    href="#contact"
+    class="mobile-link text-2xl font-serif text-foreground hover:text-primary transition-colors"
+    >Contact</a
+  >
+
+  <div
+    class="absolute bottom-12 text-xs font-mono text-muted-foreground tracking-widest"
+  >
+    ARCHIVIUM :: SYSTEM.V1
+  </div>
+</div>
+
+<script>
+  const menuToggle = document.getElementById("menu-toggle");
+  const menuClose = document.getElementById("menu-close");
+  const mobileMenu = document.getElementById("mobile-menu");
+  const mobileLinks = document.querySelectorAll(".mobile-link");
+
+  function openMenu() {
+    mobileMenu?.classList.remove("opacity-0", "pointer-events-none");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeMenu() {
+    mobileMenu?.classList.add("opacity-0", "pointer-events-none");
+    document.body.style.overflow = "";
+  }
+
+  if (menuToggle && mobileMenu && menuClose) {
+    menuToggle.addEventListener("click", openMenu);
+    menuClose.addEventListener("click", closeMenu);
+
+    // Close menu when a link is clicked
+    mobileLinks.forEach((link) => {
+      link.addEventListener("click", closeMenu);
+    });
+  }
+</script>
